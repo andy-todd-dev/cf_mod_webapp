@@ -27,7 +27,14 @@ Resources:
           - Action: "s3:GetObject"
             Effect: Allow
             Resource: !Sub "arn:aws:s3:::${S3Bucket}/*"
-            Principal: "*"
+            "Principal": {
+              "Service": "cloudfront.amazonaws.com"
+            },
+            "Condition": {
+              "StringEquals": {
+                  "AWS:SourceArn": !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}"
+              }
+          }
 
   HostedZone:
     Type: "AWS::Route53::HostedZone"
