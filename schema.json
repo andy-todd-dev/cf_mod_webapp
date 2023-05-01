@@ -117,12 +117,12 @@
                         }
                     }
                 },
-                "CloudFrontOriginAccessIdentity": {
+                "CloudFrontOriginAccessControl": {
                     "type": "object",
                     "properties": {
                         "Type": {
                             "type": "string",
-                            "const": "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+                            "const": "AWS::CloudFront::OriginAccessControl"
                         },
                         "Properties": {
                             "type": "object"

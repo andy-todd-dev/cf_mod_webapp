@@ -1,0 +1,11 @@
+{
+  "actionButtons": {
+    "commands": [
+      {
+        "name": "AWS Submit",
+        "icon": "aws",
+        "command": "cfn submit --set-default"
+      }
+    ]
+  }
+}

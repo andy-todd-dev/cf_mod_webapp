@@ -66,11 +66,14 @@ Resources:
       ValidationMethod: DNS
 
   # Configure Access to CloudFront
-  CloudFrontOriginAccessIdentity:
-    Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+  CloudFrontOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
     Properties:
-      CloudFrontOriginAccessIdentityConfig:
-        Comment: !Ref S3Bucket
+      OriginAccessControlConfig:
+        Name: static-hosting-OAC
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
 
   # Configure CloudFront
   CloudFrontDistribution:
@@ -107,7 +110,7 @@ Resources:
             QueryString: false
           MaxTTL: 86400 # in seconds
           MinTTL: 60 # in seconds
-          TargetOriginId: s3origin
+          TargetOriginId: s3websiteorigin
           ViewerProtocolPolicy: "allow-all"
         # This DefaultRootObject configuration is not enough.
         DefaultRootObject: "/index.html"
@@ -115,7 +118,8 @@ Resources:
         HttpVersion: http2
         Origins:
           - DomainName: !GetAtt "S3Bucket.DomainName"
-            Id: s3origin
+            Id: s3websiteorigin
             S3OriginConfig:
-              OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}"
+              OriginAccessIdentity: ""
+            OriginAccessControlId: !Ref CloudFrontOriginAccessControl
         PriceClass: "PriceClass_All"
