@@ -70,7 +70,7 @@ Resources:
     Type: AWS::CloudFront::OriginAccessControl
     Properties:
       OriginAccessControlConfig:
-        Name: !Sub "webapp-${AppName}-static-hosting-OAC
+        Name: !Sub "webapp-${AppName}-static-hosting-OAC"
         OriginAccessControlOriginType: s3
         SigningBehavior: always
         SigningProtocol: sigv4

@@ -21,7 +21,7 @@
                     ],
                     "description": "The domain from where the app will be reached"
                 },
-                "S3BucketName": {
+                "AppName": {
                     "type": "object",
                     "properties": {
                         "Type": {
@@ -35,7 +35,7 @@
                         "Type",
                         "Description"
                     ],
-                    "description": "Name of S3 bucket"
+                    "description": "Name of app (used in resource naming)"
                 },
                 "StagingCName": {
                     "type": "object",
