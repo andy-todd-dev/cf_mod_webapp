@@ -4,9 +4,9 @@ Parameters:
   AppDomain:
     Type: String
     Description: "The domain from where the app will be reached"
-  S3BucketName:
+  AppName:
     Type: String
-    Description: "Name of S3 bucket"
+    Description: "Name of app (used in resource naming)"
   StagingCName:
     Type: String
     Description: "CName where staging is hosted"
@@ -14,7 +14,7 @@ Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref S3BucketName
+      BucketName: !Sub "webapp-${AppName}-ui"
       WebsiteConfiguration:
         ErrorDocument: "index.html"
         IndexDocument: "index.html"
@@ -70,7 +70,7 @@ Resources:
     Type: AWS::CloudFront::OriginAccessControl
     Properties:
       OriginAccessControlConfig:
-        Name: static-hosting-OAC
+        Name: !Sub "webapp-${AppName}-static-hosting-OAC
         OriginAccessControlOriginType: s3
         SigningBehavior: always
         SigningProtocol: sigv4
